@@ -1,1 +1,11 @@
-<p>sidenav-list works!</p>
+<mat-nav-list>
+  <a mat-list-item routerLink="add-book" (click)="onSidenavClose()">
+    <mat-icon>home</mat-icon><span class="nav-caption">Home</span>
+  </a>
+  <a mat-list-item routerLink="books-list" (click)="onSidenavClose()">
+    <mat-icon>assignment_ind</mat-icon><span class="nav-caption">List</span>
+  </a>
+  <a mat-list-item routerLink="edit-book" (click)="onSidenavClose()">
+    <mat-icon>account_balance</mat-icon><span class="nav-caption">Update</span>
+  </a>
+</mat-nav-list>
