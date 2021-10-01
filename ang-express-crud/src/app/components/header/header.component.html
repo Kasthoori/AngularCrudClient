@@ -1,0 +1,25 @@
+
+
+      <mat-toolbar color="primary">
+        <div fxHide.gt-xs>
+          <button mat-icon-button (click)="onToggleSidenav()">
+            <mat-icon>menu</mat-icon>
+          </button>
+        </div>
+        <div>
+          <a routerLink="add-book">List</a>
+        </div>
+        <div fxFlex fxLayout fxLayoutAlign="end end" fxHide.xs>
+          <ul fxLayout="row" fxLayoutGap="15px" class="navigation-items" fxLayoutGap="35px">
+            <li>
+              <a routerLink="books-list">Book List</a>
+            </li>
+            <li>
+              <a routerLink="edit-book/:id">Update</a>
+            </li>
+          </ul>
+        </div>
+      </mat-toolbar>
+
+
+
