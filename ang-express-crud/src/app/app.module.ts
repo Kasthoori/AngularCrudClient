@@ -18,6 +18,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatListModule } from '@angular/material/list';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
+import { MatDividerModule } from '@angular/material/divider';
+import { NzBusinessTelInputComponent } from './nz-business-tel-input/nz-business-tel-input.component';
+import { TelInputComponent } from './components/tel-input/tel-input.component';
+
 
 @NgModule({
   declarations: [
@@ -26,7 +32,10 @@ import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.com
     BookDetailsComponent,
     BooksListComponent,
     HeaderComponent,
-    SidenavListComponent
+    SidenavListComponent,
+    NzBusinessTelInputComponent,
+    TelInputComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -38,7 +47,13 @@ import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.com
     MatSidenavModule,
     MatButtonModule,
     FlexLayoutModule,
-    MatListModule
+    MatListModule,
+    MatCardModule,
+    MatInputModule,
+    MatDividerModule,
+    FormsModule,
+    ReactiveFormsModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]
