@@ -5,48 +5,91 @@
   <mat-divider></mat-divider>
   <mat-card-content>
 
-<div [formGroup]="form">
+<form [formGroup]="invoiceForm" (ngSubmit)="onSubmit()">
    <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="60px">
       <div fxLayout="column" fxFlex="30%">
 
             <mat-form-field class="example-full-width">
                 <mat-label>Client Name</mat-label>
-                <input type="text" matInput placeholder="John">
+                <input
+                    type="text"
+                    matInput placeholder="John"
+                    formControlName="clientname"
+                >
             </mat-form-field>
 
             <mat-form-field class="example-full-width">
                 <mat-label>Search Address</mat-label>
-                <input type="text" matInput placeholder="Search Address Here...." id="address">
+                <input
+                    type="text"
+                    matInput placeholder="Search Address Here...."
+                    id="address"
+                >
             </mat-form-field>
 
              <mat-form-field class="example-full-width">
                 <mat-label>Street Address 1</mat-label>
-                <input type="text" matInput placeholder="" id="address_1">
-            </mat-form-field>
+                <input
+                    type="text"
+                    matInput placeholder=""
+                    [ngModel]="addressline1.value"
+                    #addressline1 formControlName="address_1"
+                    id="address_1"
+                >
+
+              </mat-form-field>
 
              <mat-form-field class="example-full-width">
                 <mat-label>Street Address 2</mat-label>
-                <input type="text" matInput placeholder="" id="address_2">
+                <input
+                    type="text"
+                    ngModel matInput placeholder=""
+                    [ngModel]="addressline2.value"
+                    #addressline2 formControlName="address_2"
+                    id="address_2"
+                >
             </mat-form-field>
 
              <mat-form-field class="example-full-width">
                 <mat-label>Suburb</mat-label>
-                <input type="text" matInput placeholder="" id="suburb">
+                <input
+                    type="text"
+                    matInput placeholder=""
+                    [ngModel]="suburb.value"
+                    #suburb formControlName="suburb"
+                    id="suburb"
+                >
             </mat-form-field>
 
             <mat-form-field class="example-full-width">
                 <mat-label>Town/City</mat-label>
-                <input type="text" matInput placeholder="" id="city">
+                <input
+                    type="text"
+                    matInput placeholder=""
+                    [ngModel]="city.value"
+                    #city formControlName="city"
+                    id="city"
+                >
             </mat-form-field>
 
             <mat-form-field class="example-full-width">
                 <mat-label>Post Code</mat-label>
-                <input type="text" matInput placeholder="" id="postcode">
+                <input
+                    type="text"
+                    matInput placeholder=""
+                    [ngModel]="postcode.value"
+                    #postcode formControlName="postcode"
+                    id="postcode"
+                >
             </mat-form-field>
 
             <mat-form-field class="example-full-width">
               <mat-label>New Zealand</mat-label>
-                  <select matNativeControl [disabled]="disableSelect.value">
+                  <select
+                      matNativeControl
+                      [disabled]="disableSelect.value"
+                      formControlName="country"
+                    >
                     <option value="" selected></option>
                     <option value="Cash">Cash</option>
                     <option value="Credit">VISA</option>
@@ -55,22 +98,35 @@
                   </select>
             </mat-form-field>
 
+
         </div>
 
     <div fxLayout="column" fxFlex="30%">
       <mat-form-field class="example-half1-width">
         <mat-label>Contact First Name</mat-label>
-        <input type="text" matInput placeholder="Auckland">
+        <input
+            type="text"
+            matInput placeholder="Auckland"
+            formControlName="contfirstname"
+        >
       </mat-form-field>
 
       <mat-form-field class="example-half1-width">
         <mat-label>Contact Last Name</mat-label>
-        <input type="text" matInput placeholder="Gorge">
+        <input
+            type="text"
+            matInput placeholder="Gorge"
+            formControlName="contlastname"
+        >
       </mat-form-field>
 
       <mat-form-field class="example-half1-width">
         <mat-label>Contact Email Address</mat-label>
-        <input type="email" matInput placeholder="test@gmail.com">
+        <input
+            type="email"
+            matInput placeholder="test@gmail.com"
+            formControlName="email"
+        >
       </mat-form-field>
 
 
@@ -88,7 +144,10 @@
     <div fxLayout="column" fxFlex="30%">
           <mat-form-field class="example-full-width">
         <mat-label>Payment Terms</mat-label>
-        <select matNativeControl [disabled]="disableSelect.value">
+        <select
+            matNativeControl [disabled]="disableSelect.value"
+            formControlName="payterms"
+        >
           <option value="" selected></option>
           <option value="Cash">Cash</option>
           <option value="Credit">VISA</option>
@@ -97,12 +156,12 @@
         </select>
       </mat-form-field>
 
-          <button mat-raised-button class="savebtn">Save</button>
-          <button mat-raised-button class="cancelbtn">Cancel</button>
+          <button type="submit" mat-raised-button class="savebtn">Save</button>
+          <button type="clear" mat-raised-button class="cancelbtn">Cancel</button>
 
 
     </div>
   </div>
-</div>
+</form>
   </mat-card-content>
 </mat-card>

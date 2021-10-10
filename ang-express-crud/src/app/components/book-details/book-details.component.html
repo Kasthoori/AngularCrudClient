@@ -1,1 +1,33 @@
-<p>book-details works!</p>
+<mat-card class="example-card">
+  <mat-card-header>
+    <mat-card-title>Customer Number:</mat-card-title>
+  </mat-card-header>
+  <mat-divider></mat-divider>
+  <mat-card-content>
+      <form>
+        <mat-form-field>
+          <mat-label>Client Name</mat-label>
+          <input
+              type="text"
+              matInput placeholder="John"
+              name="name"
+              ngModel
+              id="name"
+          >
+      </mat-form-field>
+      <br>
+       <mat-form-field>
+          <mat-label>Client City</mat-label>
+          <input
+              type="text"
+              matInput placeholder="John"
+              name="city"
+              id="city"
+              ngModel
+          >
+      </mat-form-field>
+      <br>
+      <button type="submit">Submit</button>
+      </form>
+  </mat-card-content>
+  </mat-card>

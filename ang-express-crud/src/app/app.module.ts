@@ -23,6 +23,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDividerModule } from '@angular/material/divider';
 import { NzBusinessTelInputComponent } from './nz-business-tel-input/nz-business-tel-input.component';
 import { TelInputComponent } from './components/tel-input/tel-input.component';
+import { AddressComponent } from './components/address/address.component';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import { TelInputComponent } from './components/tel-input/tel-input.component';
     SidenavListComponent,
     NzBusinessTelInputComponent,
     TelInputComponent,
+    AddressComponent,
 
   ],
   imports: [

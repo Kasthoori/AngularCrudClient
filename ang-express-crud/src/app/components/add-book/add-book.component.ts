@@ -19,12 +19,14 @@ import {
     FormBuilder,
     FormGroup,
     NgControl,
-    Validators
+    Validators,
+    NgForm
  } from '@angular/forms';
 
  import { MAT_FORM_FIELD, MatFormField, MatFormFieldControl } from '@angular/material/form-field';
  import { Subject } from 'rxjs';
  import { MyTel } from '../../my-tel';
+import { TelInputComponent } from '../tel-input/tel-input.component';
 
 declare var AddressFinder: any;
 @Component({
@@ -36,39 +38,75 @@ export class AddBookComponent implements OnInit {
 
   disableSelect = new FormControl(false);
 
+
+
+
+  invoiceForm: FormGroup;
+
   form: FormGroup = new FormGroup({
       tel: new FormControl(new MyTel('', '', ''))
+
   });
 
-  constructor() { }
+
+
+
+  declare address1Elementresult: string;
+
+   constructor(public formBuilder: FormBuilder) {
+    this.invoiceForm = this.formBuilder.group({
+      clientname: [''],
+      address_1: [''],
+      address_2: [''],
+      suburb: [''],
+      city: [''],
+      postcode: [''],
+      country: [''],
+      contfirstname: [''],
+      contlastname: [''],
+      email: [''],
+      tel: [''],
+      payterms: ['']
+
+    })
+  }
+
+  address: any = [];
 
   ngOnInit(){
 
     let script = document.createElement("script");
     script.src = "https://api.addressfinder.io/assets/v3/widget.js";
     script.async = true;
-    script.onload = this.initAddressFinder;
+    script.onload = this.addressFinder;
     document.body.appendChild(script);
+
   }
 
-  initAddressFinder(){
+  addressFinder(){
 
-    let widget = new AddressFinder.Widget(
-      document.getElementById("address"),
-      "YA4QE3RHNDL6VWUGJX8T",
-      "NZ",
-      {}
-    );
+                  let widget = new AddressFinder.Widget(
+                    document.getElementById("address"),
+                    "YA4QE3RHNDL6VWUGJX8T",
+                    "NZ",
+                    {}
+                  );
 
-    widget.on("result:select", function(fullAddress: any, metaData: any){
+          this.address = {
+            test: 'Test'
+          }
+
+
+
+    widget.on("result:select", function(fullAddress: string, metaData: any){
       var selected = new AddressFinder.NZSelectedAddress(fullAddress, metaData);
 
-      var address1Element = <HTMLInputElement>document.getElementById("address_1");
+
+      var address1Element = <HTMLInputElement>document.getElementById("address_1")
       var address2Element = <HTMLInputElement>document.getElementById("address_2");
       var suburbElement = <HTMLInputElement>document.getElementById("suburb");
       var cityElement = <HTMLInputElement>document.getElementById("city");
       var postcodeElement = <HTMLInputElement>document.getElementById("postcode");
-
 
       address1Element.value = selected.address_line_1();
       address2Element.value = selected.address_line_2();
@@ -78,6 +116,13 @@ export class AddBookComponent implements OnInit {
 
 
     })
+
+  }
+
+
+  onSubmit(){
+   console.log(JSON.stringify(this.invoiceForm.value));
+
   }
 
 }

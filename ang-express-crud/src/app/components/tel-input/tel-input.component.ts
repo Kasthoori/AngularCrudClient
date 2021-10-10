@@ -124,7 +124,7 @@ export class TelInputComponent implements ControlValueAccessor, MatFormFieldCont
 
         area: [
           null,
-          [Validators.required, Validators.minLength(3), Validators.maxLength(3)]
+          [Validators.required, Validators.minLength(2), Validators.maxLength(2)]
         ],
         exchange: [
           null,
