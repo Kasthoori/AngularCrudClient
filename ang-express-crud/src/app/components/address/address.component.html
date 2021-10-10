@@ -1,1 +1,55 @@
-<p>address works!</p>
+<div [formGroup]="address">
+
+  <mat-form-field class="example-full-width">
+    <input
+        matInput
+        placeholder="Search......"
+        id="address"
+        formControlName="search"
+    >
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Address Line 1</mat-label>
+    <input
+        matInput
+        placeholder="Address Line 1"
+        id="addressLine1"
+        [ngModel]="addressLine1.value"
+        #addressLine1 formControlName="addressLine1"
+    >
+  </mat-form-field>
+
+  <!-- <mat-form-field class="example-full-width">
+    <mat-label>Address Line 2</mat-label>
+    <input
+        matInput
+        placeholder="Address Line 2"
+        id="addressLine2"
+        [ngModel]="addressLine2.value"
+        #addressLine2 formControlName="addressLine2"
+    >
+  </mat-form-field> -->
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Address Line 2</mat-label>
+    <input
+        matInput
+        placeholder="Address Line 2"
+        id="addressLine2"
+        [ngModel]="addressLine2.value"
+        #addressLine2 formControlName="addressLine2"
+     >
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Post Code</mat-label>
+    <input
+        matInput
+        placeholder="Post code"
+        id="postCode"
+        [ngModel]="postCode.value"
+        #postCode formControlName="postCode"
+    >
+  </mat-form-field>
+</div>

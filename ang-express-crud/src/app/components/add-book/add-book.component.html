@@ -12,13 +12,14 @@
             <mat-form-field class="example-full-width">
                 <mat-label>Client Name</mat-label>
                 <input
+                    matInput
                     type="text"
                     matInput placeholder="John"
                     formControlName="clientname"
                 >
             </mat-form-field>
 
-            <mat-form-field class="example-full-width">
+            <!-- <mat-form-field class="example-full-width">
                 <mat-label>Search Address</mat-label>
                 <input
                     type="text"
@@ -96,7 +97,12 @@
                     <option value="Master">Master</option>
                     <option value="debit">Debit</option>
                   </select>
-            </mat-form-field>
+            </mat-form-field> -->
+
+                    <app-address formControlName="address"></app-address>
+
+
+
 
 
         </div>
@@ -105,6 +111,7 @@
       <mat-form-field class="example-half1-width">
         <mat-label>Contact First Name</mat-label>
         <input
+            matInput
             type="text"
             matInput placeholder="Auckland"
             formControlName="contfirstname"
@@ -114,6 +121,7 @@
       <mat-form-field class="example-half1-width">
         <mat-label>Contact Last Name</mat-label>
         <input
+            matInput
             type="text"
             matInput placeholder="Gorge"
             formControlName="contlastname"
@@ -123,6 +131,7 @@
       <mat-form-field class="example-half1-width">
         <mat-label>Contact Email Address</mat-label>
         <input
+            matInput
             type="email"
             matInput placeholder="test@gmail.com"
             formControlName="email"
@@ -132,7 +141,7 @@
 
       <mat-form-field appearance="fill">
         <mat-label>Phone number</mat-label>
-        <app-tel-input formControlName="tel" required></app-tel-input>
+        <app-tel-input matInput formControlName="tel" required></app-tel-input>
         <mat-icon>phone</mat-icon>
       </mat-form-field>
 
@@ -145,6 +154,7 @@
           <mat-form-field class="example-full-width">
         <mat-label>Payment Terms</mat-label>
         <select
+            matInput
             matNativeControl [disabled]="disableSelect.value"
             formControlName="payterms"
         >

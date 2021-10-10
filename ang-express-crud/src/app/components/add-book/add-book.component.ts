@@ -27,8 +27,9 @@ import {
  import { Subject } from 'rxjs';
  import { MyTel } from '../../my-tel';
 import { TelInputComponent } from '../tel-input/tel-input.component';
+import { Address } from '../../address';
 
-declare var AddressFinder: any;
+
 @Component({
   selector: 'app-add-book',
   templateUrl: './add-book.component.html',
@@ -48,20 +49,19 @@ export class AddBookComponent implements OnInit {
 
   });
 
-
-
-
   declare address1Elementresult: string;
 
    constructor(public formBuilder: FormBuilder) {
     this.invoiceForm = this.formBuilder.group({
       clientname: [''],
-      address_1: [''],
-      address_2: [''],
-      suburb: [''],
-      city: [''],
-      postcode: [''],
-      country: [''],
+      isGSTExempt:false,
+      //address_1: [''],
+      //address_2: [''],
+     // suburb: [''],
+      //city: [''],
+      //postcode: [''],
+      //country: [''],
+      address: [''],
       contfirstname: [''],
       contlastname: [''],
       email: [''],
@@ -71,57 +71,15 @@ export class AddBookComponent implements OnInit {
     })
   }
 
-  address: any = [];
 
   ngOnInit(){
-
-    let script = document.createElement("script");
-    script.src = "https://api.addressfinder.io/assets/v3/widget.js";
-    script.async = true;
-    script.onload = this.addressFinder;
-    document.body.appendChild(script);
-
-  }
-
-  addressFinder(){
-
-                  let widget = new AddressFinder.Widget(
-                    document.getElementById("address"),
-                    "YA4QE3RHNDL6VWUGJX8T",
-                    "NZ",
-                    {}
-                  );
-
-          this.address = {
-            test: 'Test'
-          }
-
-
-
-    widget.on("result:select", function(fullAddress: string, metaData: any){
-      var selected = new AddressFinder.NZSelectedAddress(fullAddress, metaData);
-
-
-      var address1Element = <HTMLInputElement>document.getElementById("address_1")
-      var address2Element = <HTMLInputElement>document.getElementById("address_2");
-      var suburbElement = <HTMLInputElement>document.getElementById("suburb");
-      var cityElement = <HTMLInputElement>document.getElementById("city");
-      var postcodeElement = <HTMLInputElement>document.getElementById("postcode");
-
-      address1Element.value = selected.address_line_1();
-      address2Element.value = selected.address_line_2();
-      suburbElement.value = selected.suburb();
-      cityElement.value = selected.city();
-      postcodeElement.value = selected.postcode();
-
-
-    })
 
   }
 
 
   onSubmit(){
-   console.log(JSON.stringify(this.invoiceForm.value));
+   console.log("Object" , JSON.stringify(this.invoiceForm.value));
+   console.log("Submitted")
 
   }
 

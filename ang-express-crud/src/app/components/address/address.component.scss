@@ -1,0 +1,83 @@
+$medium: 200px;
+$small: 300px;
+
+::ng-deep .mat-form-field {
+  .mat-input-element {
+    color: slategray;
+  }
+
+  .mat-form-field-label {
+    color: slategray;
+  }
+
+  .mat-form-field-underline {
+    background-color: slategray;
+  }
+
+  .mat-form-field-ripple {
+    background-color: slategray;
+  }
+
+  .mat-form-field-required-marker {
+    color: slategray;
+  }
+}
+
+.example-card {
+  height: 100%;
+  border: 2px solid lightgray;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+mat-divider {
+  border: 0.2px solid;
+  border-color: lightgray;
+}
+
+ .example-full-width {
+   width: 100%;
+   padding: 2px;
+ }
+
+// .example-half1-width {
+//   width: 31%;
+//   padding: 15px;
+// }
+
+input {
+  background-color: #eeeeee;
+  height: 35px;
+  padding: auto;
+  border: 1px solid;
+}
+
+select {
+  background-color: #eeeeee;
+  margin-top: 13px;
+  height: 35px;
+  padding: auto;
+  border: 1px solid;
+}
+
+mat-label {
+  margin-left: 5px;
+}
+
+.savebtn {
+  display: block;
+  color: white;
+  background-color: blue;
+  text-align: center;
+  width: 150px;
+  padding: 2px;
+}
+
+.cancelbtn {
+  margin-top: 5px;
+  display: block;
+  color: white;
+  background-color:orange;
+  text-align: center;
+  width: 150px;
+  padding: 2px;
+}
