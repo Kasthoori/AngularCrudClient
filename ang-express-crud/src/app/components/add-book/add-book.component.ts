@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -20,7 +20,8 @@ import {
     FormGroup,
     NgControl,
     Validators,
-    NgForm
+    NgForm,
+    ReactiveFormsModule
  } from '@angular/forms';
 
  import { MAT_FORM_FIELD, MatFormField, MatFormFieldControl } from '@angular/material/form-field';
@@ -51,7 +52,7 @@ export class AddBookComponent implements OnInit {
 
   declare address1Elementresult: string;
 
-   constructor(public formBuilder: FormBuilder) {
+   constructor(public formBuilder: FormBuilder, private ref: ChangeDetectorRef) {
     this.invoiceForm = this.formBuilder.group({
       clientname: [''],
       isGSTExempt:false,
@@ -71,6 +72,12 @@ export class AddBookComponent implements OnInit {
     })
   }
 
+
+  ngAfterContentChecked(): void {
+    //Called after every check of the component's or directive's content.
+    //Add 'implements AfterContentChecked' to the class.
+    this.ref.detectChanges();
+  }
 
   ngOnInit(){
 

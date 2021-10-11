@@ -1,5 +1,5 @@
-import { Component, Input, OnDestroy, OnInit, Optional, Self, ViewChild } from '@angular/core';
-import { AbstractControl, ControlValueAccessor, FormBuilder, FormGroup, NgControl, NG_VALIDATORS, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
+import { ChangeDetectorRef, Component, forwardRef, Input, OnDestroy, OnInit, Optional, Self, ViewChild } from '@angular/core';
+import { FormsModule, AbstractControl, ControlValueAccessor, FormBuilder, FormGroup, NgControl, NG_VALIDATORS, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { Subject, Subscription } from 'rxjs';
 import { Address } from '../../address';
@@ -15,7 +15,7 @@ declare var AddressFinder: any;
     {
       provide: NG_VALUE_ACCESSOR,
       multi: true,
-      useExisting: AddressComponent
+      useExisting: forwardRef(() => AddressComponent)
     },
     {
       provide: NG_VALIDATORS,
@@ -24,7 +24,7 @@ declare var AddressFinder: any;
     }
   ]
 })
-export class AddressComponent implements ControlValueAccessor, OnDestroy, OnInit, Validators {
+export class AddressComponent implements  ControlValueAccessor, OnDestroy, OnInit, Validators {
 
   address: FormGroup = this.fb.group({
 
@@ -37,15 +37,16 @@ export class AddressComponent implements ControlValueAccessor, OnDestroy, OnInit
 
   onTouched: Function = () => {};
   onChangeSubs: Subscription[] = [];
+  changeDetector: any;
 
-  constructor(private fb: FormBuilder){}
+  constructor(private fb: FormBuilder, private ref: ChangeDetectorRef){};
 
-
-  ngOnDestroy() {
-    for(let sub of this.onChangeSubs){
-      sub.unsubscribe();
-    }
+  ngAfterContentChecked(): void {
+    //Called after every check of the component's or directive's content.
+    //Add 'implements AfterContentChecked' to the class.
+    this.ref.detectChanges();
   }
+
 
   registerOnChange(onChange: any){
     const sub = this.address.valueChanges.subscribe(onChange);
@@ -144,6 +145,13 @@ export class AddressComponent implements ControlValueAccessor, OnDestroy, OnInit
     })
 
   }
+
+   ngOnDestroy() {
+    for(let sub of this.onChangeSubs){
+      sub.unsubscribe();
+    }
+  }
+
 
 
 }

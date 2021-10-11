@@ -21,7 +21,7 @@ import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.com
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatDividerModule } from '@angular/material/divider';
-import { NzBusinessTelInputComponent } from './nz-business-tel-input/nz-business-tel-input.component';
+//import { NzBusinessTelInputComponent } from './nz-business-tel-input/nz-business-tel-input.component';
 import { TelInputComponent } from './components/tel-input/tel-input.component';
 import { AddressComponent } from './components/address/address.component';
 
@@ -34,7 +34,6 @@ import { AddressComponent } from './components/address/address.component';
     BooksListComponent,
     HeaderComponent,
     SidenavListComponent,
-    NzBusinessTelInputComponent,
     TelInputComponent,
     AddressComponent,
 
