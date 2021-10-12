@@ -54,6 +54,7 @@ import { AddressComponent } from './components/address/address.component';
     MatDividerModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule
 
   ],
   providers: [],

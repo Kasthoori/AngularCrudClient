@@ -1,4 +1,4 @@
-<div [formGroup]="address">
+<div [formGroup]="form" #f="ngForm">
 
   <mat-form-field class="example-full-width">
     <input
@@ -17,19 +17,10 @@
         id="addressLine1"
         [ngModel]="addressLine1.value"
         #addressLine1 formControlName="addressLine1"
+        required
     >
+    <mat-error *ngIf="checkError('addressLine1', 'required')">Address is required</mat-error>
   </mat-form-field>
-
-  <!-- <mat-form-field class="example-full-width">
-    <mat-label>Address Line 2</mat-label>
-    <input
-        matInput
-        placeholder="Address Line 2"
-        id="addressLine2"
-        [ngModel]="addressLine2.value"
-        #addressLine2 formControlName="addressLine2"
-    >
-  </mat-form-field> -->
 
   <mat-form-field class="example-full-width">
     <mat-label>Address Line 2</mat-label>
@@ -39,6 +30,7 @@
         id="addressLine2"
         [ngModel]="addressLine2.value"
         #addressLine2 formControlName="addressLine2"
+        required
      >
   </mat-form-field>
 
@@ -50,6 +42,7 @@
         id="postCode"
         [ngModel]="postCode.value"
         #postCode formControlName="postCode"
+        required
     >
   </mat-form-field>
 </div>

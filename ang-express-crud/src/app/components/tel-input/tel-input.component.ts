@@ -102,8 +102,8 @@ export class TelInputComponent implements ControlValueAccessor, MatFormFieldCont
      return null;
    }
 
-   set value(tel: MyTel | null) {
-     const {area, exchange, subscriber} = tel || new MyTel('', '', '');
+   set value(phone: MyTel | null) {
+     const {area, exchange, subscriber} = phone || new MyTel('', '', '');
      this.parts.setValue({area, exchange, subscriber});
      this.stateChanges.next();
    }
@@ -198,8 +198,8 @@ export class TelInputComponent implements ControlValueAccessor, MatFormFieldCont
       }
   }
 
-  writeValue(tel: MyTel): void {
-    this.value = tel;
+  writeValue(phone: MyTel): void {
+    this.value = phone;
   }
   registerOnChange(fn: any): void {
     this.onChange = fn;

@@ -1,5 +1,5 @@
 
- <div role="group" class="tel-input-container"
+ <div role="group" class="tel-input-container" #f="ngForm"
       [formGroup]="parts"
       [attr.aria-labelledby] = "_formField?.getLabelId()"
       (focusin)="onFocusIn($event)"

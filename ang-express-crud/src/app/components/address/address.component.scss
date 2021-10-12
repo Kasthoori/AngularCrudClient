@@ -81,3 +81,7 @@ mat-label {
   width: 150px;
   padding: 2px;
 }
+
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}

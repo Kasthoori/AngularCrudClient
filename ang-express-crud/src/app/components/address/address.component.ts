@@ -1,9 +1,8 @@
 import { ChangeDetectorRef, Component, forwardRef, Input, OnDestroy, OnInit, Optional, Self, ViewChild } from '@angular/core';
-import { FormsModule, AbstractControl, ControlValueAccessor, FormBuilder, FormGroup, NgControl, NG_VALIDATORS, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
+import { FormsModule, AbstractControl, ControlValueAccessor, FormBuilder, FormGroup, NgControl, NG_VALIDATORS, NG_VALUE_ACCESSOR, Validators, FormControl } from '@angular/forms';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { Subject, Subscription } from 'rxjs';
 import { Address } from '../../address';
-import { IAddress } from '../../iaddress';
 
 
 declare var AddressFinder: any;
@@ -15,90 +14,77 @@ declare var AddressFinder: any;
     {
       provide: NG_VALUE_ACCESSOR,
       multi: true,
+      //useExisting: forwardRef(() => AddressComponent)
       useExisting: forwardRef(() => AddressComponent)
     },
+
+    {
+      provide: MatFormFieldControl,
+      multi: true,
+      useExisting: forwardRef(() => AddressComponent)
+    },
+
     {
       provide: NG_VALIDATORS,
       multi: true,
-      useExisting: AddressComponent
+      useExisting: forwardRef(() => AddressComponent)
     }
   ]
 })
 export class AddressComponent implements  ControlValueAccessor, OnDestroy, OnInit, Validators {
 
-  address: FormGroup = this.fb.group({
 
-    addressLine1: [null, [Validators.required]],
-    addressLine2: [null, [Validators.required]],
-   // addressLine3: [null, [Validators.required]],
-    postCode: [null, [Validators.required]]
-  });
+form: FormGroup;
+subscriptions: Subscription[] = [];
+
+onTouched: any = () => {};
+onChange: any = () => {};
+changeDetector: any;
 
 
-  onTouched: Function = () => {};
-  onChangeSubs: Subscription[] = [];
-  changeDetector: any;
+get value(): Address {
 
-  constructor(private fb: FormBuilder, private ref: ChangeDetectorRef){};
+  return this.form.value;
 
-  ngAfterContentChecked(): void {
-    //Called after every check of the component's or directive's content.
-    //Add 'implements AfterContentChecked' to the class.
-    this.ref.detectChanges();
+}
+
+set value(value: Address){
+
+  this.form.setValue(value);
+  this.onChange(value);
+  this.onTouched();
+}
+
+  constructor(private fb: FormBuilder, private ref: ChangeDetectorRef){
+
+    this.form = this.fb.group({
+      addressLine1:[
+        null,
+        [Validators.required]
+      ],
+
+      addressLine2: [
+        null,
+        [Validators.required]
+      ],
+      postCode: [
+        null,
+        [Validators.required]
+      ]
+    });
+
+
+    this.subscriptions.push(
+
+      this.form.valueChanges.subscribe(value => {
+        this.onChange(value);
+        this.onTouched();
+      })
+    );
   }
 
 
-  registerOnChange(onChange: any){
-    const sub = this.address.valueChanges.subscribe(onChange);
-    this.onChangeSubs.push(sub);
-  }
-
-  registerOnTouched(onTouched: Function){
-    this.onTouched = onTouched;
-  }
-
-  setDisabledState(disabled: boolean){
-    if(disabled){
-      this.address.disable();
-    }else{
-      this.address.enable();
-    }
-  }
-
-  writeValue(value: any){
-    if(value){
-      this.address.setValue(value, {emitEvent: false});
-    }
-  }
-
-  validate(control: AbstractControl):any{
-
-    if(this.address.valid){
-      return null;
-    }
-
-    let errors: any = {};
-
-    errors = this.addControlErrors(errors, "addressLine1");
-    errors = this.addControlErrors(errors, "addressLine2");
-    //errors = this.addControlErrors(errors, "addressLine3");
-    errors = this.addControlErrors(errors, "postCode");
-  }
-
-  addControlErrors(allErrors: any, controlName:string){
-    const errors = {...allErrors};
-
-    const controlErrors = this.address.controls[controlName].errors;
-
-    if(controlErrors){
-      errors[controlName] = controlErrors;
-    }
-
-    return errors;
-  }
-
-
-  addressfinder: any = [];
+   addressfinder: any = [];
 
   ngOnInit() {
         let script = document.createElement("script");
@@ -118,11 +104,6 @@ export class AddressComponent implements  ControlValueAccessor, OnDestroy, OnIni
                     "NZ",
                     {}
                   );
-
-          this.addressfinder = {
-            test: 'Test'
-          }
-
 
 
     widget.on("result:select", function(fullAddress: string, metaData: any){
@@ -146,10 +127,51 @@ export class AddressComponent implements  ControlValueAccessor, OnDestroy, OnIni
 
   }
 
-   ngOnDestroy() {
-    for(let sub of this.onChangeSubs){
-      sub.unsubscribe();
+ ngAfterContentChecked(): void {
+    this.ref.detectChanges();
+  }
+
+
+  registerOnChange(fn: any){
+    this.onChange = fn;
+  }
+
+  setDisabledState(disabled: boolean){
+    if(disabled){
+      this.form.disable();
+    }else{
+      this.form.enable();
     }
+  }
+
+  writeValue(value: any){
+    if(value){
+      this.value = value;
+    }
+
+    if(value === null){
+      this.form.reset();
+    }
+  }
+
+  registerOnTouched(fn: any){
+    this.onTouched = fn;
+  }
+
+  public checkError = (controlName: string, errorName:string) => {
+    return this.form.controls[controlName].hasError(errorName);
+  }
+
+  get addressLine1Control() {
+    return this.form.controls.addressLine1;
+  }
+
+  validate(_:FormControl){
+    return this.form.valid ? null : {address: {valid: false}};
+  }
+
+   ngOnDestroy() {
+    this.subscriptions.forEach(s => s.unsubscribe());
   }
 
 

@@ -72,6 +72,10 @@ mat-label {
   padding: 2px;
 }
 
+.savebtn:disabled{
+  background-color: #9e9e9e;
+}
+
 .cancelbtn {
   margin-top: 5px;
   display: block;
@@ -80,5 +84,13 @@ mat-label {
   text-align: center;
   width: 150px;
   padding: 2px;
+}
+
+.error {
+  color: red;
+}
+
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
 }
 

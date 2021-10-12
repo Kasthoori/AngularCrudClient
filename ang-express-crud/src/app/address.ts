@@ -1,9 +1,7 @@
-export class Address {
+export interface Address {
 
-  constructor(
-    public addressLine1: string,
-    public addressLine2: string,
-    public addressLine3: string,
-    public postCode: string
-  ){}
+    addressLine1: string,
+    addressLine2: string,
+    postCode: string
+
 }

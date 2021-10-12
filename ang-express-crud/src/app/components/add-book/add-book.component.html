@@ -7,7 +7,7 @@
 <div>
 
 </div>
-<form [formGroup]="invoiceForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="invoiceForm" (ngSubmit)="onSubmit()" #f="ngForm">
    <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="60px">
       <div fxLayout="column" fxFlex="30%">
 
@@ -16,94 +16,15 @@
                 <input
                     matInput
                     type="text"
+                    id="clientname"
                     matInput placeholder="John"
                     formControlName="clientname"
+                    required
                 >
+                <mat-error *ngIf="checkError('clientname','required')">Client name is required</mat-error>
             </mat-form-field>
 
-            <!-- <mat-form-field class="example-full-width">
-                <mat-label>Search Address</mat-label>
-                <input
-                    type="text"
-                    matInput placeholder="Search Address Here...."
-                    id="address"
-                >
-            </mat-form-field>
-
-             <mat-form-field class="example-full-width">
-                <mat-label>Street Address 1</mat-label>
-                <input
-                    type="text"
-                    matInput placeholder=""
-                    [ngModel]="addressline1.value"
-                    #addressline1 formControlName="address_1"
-                    id="address_1"
-                >
-
-              </mat-form-field>
-
-             <mat-form-field class="example-full-width">
-                <mat-label>Street Address 2</mat-label>
-                <input
-                    type="text"
-                    ngModel matInput placeholder=""
-                    [ngModel]="addressline2.value"
-                    #addressline2 formControlName="address_2"
-                    id="address_2"
-                >
-            </mat-form-field>
-
-             <mat-form-field class="example-full-width">
-                <mat-label>Suburb</mat-label>
-                <input
-                    type="text"
-                    matInput placeholder=""
-                    [ngModel]="suburb.value"
-                    #suburb formControlName="suburb"
-                    id="suburb"
-                >
-            </mat-form-field>
-
-            <mat-form-field class="example-full-width">
-                <mat-label>Town/City</mat-label>
-                <input
-                    type="text"
-                    matInput placeholder=""
-                    [ngModel]="city.value"
-                    #city formControlName="city"
-                    id="city"
-                >
-            </mat-form-field>
-
-            <mat-form-field class="example-full-width">
-                <mat-label>Post Code</mat-label>
-                <input
-                    type="text"
-                    matInput placeholder=""
-                    [ngModel]="postcode.value"
-                    #postcode formControlName="postcode"
-                    id="postcode"
-                >
-            </mat-form-field>
-
-            <mat-form-field class="example-full-width">
-              <mat-label>New Zealand</mat-label>
-                  <select
-                      matNativeControl
-                      [disabled]="disableSelect.value"
-                      formControlName="country"
-                    >
-                    <option value="" selected></option>
-                    <option value="Cash">Cash</option>
-                    <option value="Credit">VISA</option>
-                    <option value="Master">Master</option>
-                    <option value="debit">Debit</option>
-                  </select>
-            </mat-form-field> -->
-
-                    <app-address formControlName="address"></app-address>
-
-
+        <app-address required ngModel formControlName="address"></app-address>
 
 
 
@@ -117,6 +38,7 @@
             type="text"
             matInput placeholder="Auckland"
             formControlName="contfirstname"
+            required
         >
       </mat-form-field>
 
@@ -127,6 +49,7 @@
             type="text"
             matInput placeholder="Gorge"
             formControlName="contlastname"
+            required
         >
       </mat-form-field>
 
@@ -137,19 +60,19 @@
             type="email"
             matInput placeholder="test@gmail.com"
             formControlName="email"
+            required
+            ngModel
+            email
         >
+        <mat-error *ngIf="checkError('email','required')">Please enter email</mat-error>
+        <mat-error *ngIf="checkError('email','pattern')">Enter valid email address</mat-error>
       </mat-form-field>
-
 
       <mat-form-field appearance="fill">
         <mat-label>Phone number</mat-label>
-        <app-tel-input matInput formControlName="tel" required></app-tel-input>
+        <app-tel-input matInput formControlName="phone" required></app-tel-input>
         <mat-icon>phone</mat-icon>
       </mat-form-field>
-
-      <!-- <app-tel-input></app-tel-input> -->
-
-
 
     </div>
     <div fxLayout="column" fxFlex="30%">
@@ -157,8 +80,9 @@
         <mat-label>Payment Terms</mat-label>
         <select
             matInput
-            matNativeControl [disabled]="disableSelect.value"
+            matNativeControl
             formControlName="payterms"
+            required
         >
           <option value="" selected></option>
           <option value="Cash">Cash</option>
@@ -168,7 +92,7 @@
         </select>
       </mat-form-field>
 
-          <button type="submit" mat-raised-button class="savebtn">Save</button>
+          <button type="submit" [disabled]="!f.valid" mat-raised-button class="savebtn">Save</button>
           <button type="clear" mat-raised-button class="cancelbtn">Cancel</button>
 
 

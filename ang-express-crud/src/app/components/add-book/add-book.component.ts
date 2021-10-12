@@ -1,5 +1,5 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { ChangeDetectorRef, Component, NgZone, OnInit } from '@angular/core';
+import { FormControl} from '@angular/forms';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 
@@ -21,7 +21,8 @@ import {
     NgControl,
     Validators,
     NgForm,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
  } from '@angular/forms';
 
  import { MAT_FORM_FIELD, MatFormField, MatFormFieldControl } from '@angular/material/form-field';
@@ -29,6 +30,8 @@ import {
  import { MyTel } from '../../my-tel';
 import { TelInputComponent } from '../tel-input/tel-input.component';
 import { Address } from '../../address';
+import { CrudService } from 'src/app/Service/crud-service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -36,37 +39,38 @@ import { Address } from '../../address';
   templateUrl: './add-book.component.html',
   styleUrls: ['./add-book.component.scss']
 })
-export class AddBookComponent implements OnInit {
+export class AddBookComponent implements OnInit, Validators {
 
   disableSelect = new FormControl(false);
 
-
-
-
   invoiceForm: FormGroup;
 
-  form: FormGroup = new FormGroup({
-      tel: new FormControl(new MyTel('', '', ''))
 
+  form: FormGroup = new FormGroup({
+      phone: new FormControl(new MyTel('', '', ''))
   });
 
   declare address1Elementresult: string;
 
-   constructor(public formBuilder: FormBuilder, private ref: ChangeDetectorRef) {
+  emailPattern = "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
+
+   constructor(public formBuilder: FormBuilder,
+    private ref: ChangeDetectorRef,
+    private crudService: CrudService,
+    private ngZone: NgZone,
+    private router: Router
+    ) {
     this.invoiceForm = this.formBuilder.group({
-      clientname: [''],
+      clientname: [
+        null,
+        [Validators.required]
+      ],
       isGSTExempt:false,
-      //address_1: [''],
-      //address_2: [''],
-     // suburb: [''],
-      //city: [''],
-      //postcode: [''],
-      //country: [''],
-      address: [''],
+      address: [],
       contfirstname: [''],
       contlastname: [''],
-      email: [''],
-      tel: [''],
+      email: ['',[Validators.required, Validators.pattern(this.emailPattern)]],
+      phone: [],
       payterms: ['']
 
     })
@@ -74,8 +78,6 @@ export class AddBookComponent implements OnInit {
 
 
   ngAfterContentChecked(): void {
-    //Called after every check of the component's or directive's content.
-    //Add 'implements AfterContentChecked' to the class.
     this.ref.detectChanges();
   }
 
@@ -83,11 +85,23 @@ export class AddBookComponent implements OnInit {
 
   }
 
-
-  onSubmit(){
-   console.log("Object" , JSON.stringify(this.invoiceForm.value));
-   console.log("Submitted")
-
+  //Check input errors
+  public checkError = (controlName: string, errorName: string) => {
+    return this.invoiceForm.controls[controlName].hasError(errorName);
   }
 
+
+  onSubmit(): any{
+   console.log("Object" , JSON.stringify(this.invoiceForm.value));
+   console.log(this.invoiceForm.value);
+
+   /*  this.crudService.AddBook(this.invoiceForm.value)
+      .subscribe(() => {
+          console.log("Data added successfully");
+          this.ngZone.run(() => this.router.navigateByUrl('/book-list'))
+      }, (err) => {
+        console.log(err)
+      })
+  } */
+}
 }
